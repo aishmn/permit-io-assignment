@@ -5,6 +5,14 @@ from db.session import engine, Base
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
+from permit import Permit
+
+permit = Permit(
+    pdp="http://localhost:7766",  
+    token="YOUR_PERMIT_API_KEY"    
+)
+
+
 app = FastAPI()
 
 async def get_db():

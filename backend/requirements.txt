@@ -7,3 +7,7 @@ python-dotenv
 asyncpg
 sqlalchemy[asyncio]
 databases
+permit
+python-jose
+passlib
+pydantic

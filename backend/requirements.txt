@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+sqlalchemy
+jose
+requests
+python-dotenv
+asyncpg
+sqlalchemy[asyncio]
+databases

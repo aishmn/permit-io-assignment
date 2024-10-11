@@ -31,15 +31,20 @@ services:
       - app-network
 
   permit-pdp:
-    image: permitio/pdp
+    image: permitio/pdp-v2:latest
     environment:
-      PDP_API_KEY: ${PERMIT_API_KEY}
-      PDP_DEBUG: ${PERMIT_PDP_DEBUG}
+      - PDP_API_KEY=${PERMIT_API_KEY}
+      - PDP_DEBUG=${PERMIT_PDP_DEBUG}
     ports:
       - "7766:7000"
     restart: always
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   db_data:

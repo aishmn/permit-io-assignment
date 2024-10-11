@@ -9,20 +9,41 @@ services:
       - PERMIT_API_KEY=${PERMIT_API_KEY}
       - DATABASE_URL=${DATABASE_URL}
       - JWT_SECRET=${JWT_SECRET}
+      - PERMIT_PDP_URL=http://permit-pdp:7000
     volumes:
       - ./backend/app:/app
     depends_on:
       - db
+      - permit-pdp
+    networks:
+      - app-network
 
   db:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: ${DB_USER}    
+      POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  permit-pdp:
+    image: permitio/pdp
+    environment:
+      PDP_API_KEY: ${PERMIT_API_KEY}
+      PDP_DEBUG: ${PERMIT_PDP_DEBUG}
+    ports:
+      - "7766:7000"
+    restart: always
+    networks:
+      - app-network
 
 volumes:
   db_data:
+
+networks:
+  app-network:
+    driver: bridge

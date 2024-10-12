@@ -110,22 +110,22 @@ Make sure to configure the following environment variables in your `.env` file:
 
 - **Build and Start Services**: 
   ```bash
-  docker-compose up --build
+  docker-compose -f dev.yml up --build
   ```
 
 - **Stop Services**: 
   ```bash
-  docker-compose down
+  docker-compose -f dev.yml down
   ```
 
 - **View Logs**: 
   ```bash
-  docker-compose logs
+  docker-compose -f dev.yml logs
   ```
 
 - **Run Database Migrations** (if applicable):
   ```bash
-  docker-compose exec backend alembic upgrade head
+  docker-compose -f dev.yml exec backend alembic upgrade head
   ```
 
 ## Contributing

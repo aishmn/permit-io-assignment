@@ -11,3 +11,4 @@ permit
 python-jose
 passlib
 pydantic
+pyjwt

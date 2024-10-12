@@ -1,16 +1,18 @@
 from fastapi import APIRouter, Depends, HTTPException
 import requests
 import os
+import logging
 
 router = APIRouter()
 
 class PermitService:
-    BASE_URL = "https://api.permit.io/v2"
-
     def __init__(self):
+        self.BASE_URL = os.getenv("PERMIT_PDP_URL")
         self.api_key = os.getenv("PERMIT_API_KEY")
-        if not self.api_key:
-            raise ValueError("PERMIT_API_KEY not set in environment")
+        
+        if not self.BASE_URL or not self.api_key:
+            raise ValueError("PERMIT_PDP_URL or PERMIT_API_KEY not set in environment")
+        
         self.headers = {
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json"
@@ -28,15 +30,10 @@ class PermitService:
 
     def get_resources(self):
         return self._make_request("resources")
-
     def get_roles(self):
         return self._make_request("roles")
 
     def get_relationships(self):
         return self._make_request("relationships")
 
-permit_service = PermitService()
 
-@router.get("/roles")
-def read_roles():
-    return permit_service.get_roles()

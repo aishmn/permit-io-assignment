@@ -1,4 +1,20 @@
 services:
+  frontend:
+      build:
+        context: .
+        dockerfile: ./webapp/Dockerfile.dev
+      ports:
+        - "3000:3000"
+      volumes:
+        - ./webapp:/app
+        - /app/node_modules
+      environment:
+        - CHOKIDAR_USEPOLLING=true
+      stdin_open: true
+      tty: true
+      networks:
+      - app-network
+
   backend:
     build:
       context: .
@@ -9,7 +25,7 @@ services:
       - PERMIT_API_KEY=${PERMIT_API_KEY}
       - DATABASE_URL=${DATABASE_URL}
       - JWT_SECRET=${JWT_SECRET}
-      - PERMIT_PDP_URL=http://permit-pdp:7000
+      - PERMIT_PDP_URL=${PERMIT_PDP_URL}
     volumes:
       - ./backend/app:/app
     depends_on:

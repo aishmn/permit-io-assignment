@@ -32,7 +32,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# API route to check permissions using Permit.io
 @app.get("/")
 async def check_permissions():
     permitted = await permit.check(user["id"], "read", "repository")
@@ -67,7 +66,6 @@ def convert_to_serializable(data):
 async def get_rbac_data():
     try:
         rbac_data = await permit.api._roles.list()
-
         rbac_data_serializable = convert_to_serializable(rbac_data)
 
         return JSONResponse(status_code=status.HTTP_200_OK, content={"rbac_data": rbac_data_serializable})

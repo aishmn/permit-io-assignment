@@ -23,34 +23,11 @@ services:
       - "8000:8000"
     environment:
       - PERMIT_API_KEY=${PERMIT_API_KEY}
-      - DATABASE_URL=${DATABASE_URL}
-      - JWT_SECRET=${JWT_SECRET}
-      - PERMIT_PDP_URL=${PERMIT_PDP_URL}
     volumes:
       - ./backend/app:/app
-    depends_on:
-      - permit-pdp
     networks:
       - app-network
 
-  permit-pdp:
-    image: permitio/pdp-v2:latest
-    environment:
-      - PDP_API_KEY=${PERMIT_API_KEY}
-      - PDP_DEBUG=${PERMIT_PDP_DEBUG}
-    ports:
-      - "7766:7000"
-    restart: always
-    networks:
-      - app-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7000/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
-volumes:
-  db_data:
 
 networks:
   app-network:

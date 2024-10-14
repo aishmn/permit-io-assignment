@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY webapp/package*.json ./
 
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 COPY webapp/ .
 

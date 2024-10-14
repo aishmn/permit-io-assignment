@@ -29,20 +29,7 @@ services:
     volumes:
       - ./backend/app:/app
     depends_on:
-      - db
       - permit-pdp
-    networks:
-      - app-network
-
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
-    volumes:
-      - db_data:/var/lib/postgresql/data
     networks:
       - app-network
 

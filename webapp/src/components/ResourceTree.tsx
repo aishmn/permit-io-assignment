@@ -69,14 +69,16 @@ const ResourceTree: React.FC<ResourceTreeProps> = ({ resourcesData }) => {
               <h4 className="font-semibold text-gray-800 border-b border-gray-300 pb-2">
                 Roles and Permissions
               </h4>
-              <ul className="space-y-3 mt-2">
+              <ul className="space-y-3 mt-2 grid ">
                 {Object.values(resource.roles).map(role => (
                   <li
                     key={role.key}
                     className="flex justify-between items-center p-3 bg-gray-100 rounded-md shadow-sm">
                     <span className="font-bold text-gray-700">{role.name}</span>
                     <section className="text-gray-600 flex gap-1">
-                      <span className="text-sm">Allowed Permissions:</span>
+                      <span className="text-xs md:text-sm ml-1">
+                        Allowed Permissions:
+                      </span>
                       {role.permissions.map(pr => (
                         <span
                           key={pr}

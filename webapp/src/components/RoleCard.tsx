@@ -35,12 +35,12 @@ const RoleCard: React.FC<RoleCardProps> = ({ rolesData }) => {
   };
 
   return (
-    <div className="p-6 bg-gray-100 rounded-lg shadow-lg mt-5">
+    <div className="p-6 bg-gray-100 rounded-lg shadow-lg mt-5 w-full h-ull">
       <h2 className="mb-6 text-3xl font-bold text-left text-gray-800">
-        User Roles Overview
+        User & Roles Overview
       </h2>
 
-      <ul className="grid grid-flow-col grid-cols-3 gap-5 ">
+      <ul className="grid grid-cols-1 md:grid-cols-3 gap-5 ">
         {rolesData.map(role => {
           const groupedPermissions = groupPermissions(role.permissions);
 
